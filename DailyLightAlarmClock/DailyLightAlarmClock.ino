@@ -5,10 +5,13 @@ long numberMillisOverflows = 0;
 #define outPin 9
 
 #if _debug 
-  #define dprintf(string) Serial.println(string);
+  #define dprintf(string) Serial.println(string)
 #else
   #define dprintf(string)
 #endif
+
+///////////////////////////////////////////////////////////////////
+// Clock
 
 unsigned long toDay = 24;
 unsigned long toHour = 60;
@@ -43,6 +46,35 @@ int getSeconds(){
 int getMilliseconds(){
   return millis()%toSecond;
 }
+
+///////////////////////////////////////////////////////////////////
+// Tasks
+
+struct taskDefinition{
+  long lastUpdate = 0;
+  long period = 0;
+};
+
+enum taskID{
+  increaseLight
+};
+
+taskDefinition task[1];
+
+void setLastUpdate(int id){
+  task[id].lastUpdate = millis();
+}
+
+bool isCalled(int id){
+  if(millis()>(task[0].lastUpdate + task[0].period)){
+      setLastUpdate(id);
+      return true;
+  } else {
+    return false;
+  }
+}
+
+
 
 void setup() {
   // put your setup code here, to run once:
