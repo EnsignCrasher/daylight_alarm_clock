@@ -1,5 +1,13 @@
 long numberMillisOverflows = 0;
 
+#define _debug 1
+
+#if _debug 
+  #define dprintf(string) Serial.println(string);
+#else
+  #define dprintf(string)
+#endif
+
 unsigned long toDay = 24;
 unsigned long toHour = 60;
 unsigned long toMinute = 60;
@@ -36,16 +44,19 @@ int getMilliseconds(){
 
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(9600);
-  Serial.println(
-  "Offset Hour: " + String(offsetHour) + 
-  " Offset Minute " + String(offsetMinute)
-  );
-  Serial.println("begin");
+  #if _debug
+    Serial.begin(9600);
+  #endif
+  dprintf(
+    "Offset Hour: " + String(offsetHour) + 
+    " Offset Minute " + String(offsetMinute)
+    );
+    dprintf("begin");
+  
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  Serial.println("Current time: " + String(getHours()) + ":" + String(getMinutes()) + ":" + String(getSeconds()) + ":" + String(getMilliseconds()) + "             millis: " + String(millis()));
+  dprintf("Current time: " + String(getHours()) + ":" + String(getMinutes()) + ":" + String(getSeconds()) + ":" + String(getMilliseconds()) + "             millis: " + String(millis()));
   delay(200);
 }
