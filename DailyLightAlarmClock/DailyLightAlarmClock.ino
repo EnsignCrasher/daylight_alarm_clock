@@ -2,6 +2,8 @@ long numberMillisOverflows = 0;
 
 #define _debug 1
 
+#define outPin 9
+
 #if _debug 
   #define dprintf(string) Serial.println(string);
 #else
@@ -47,12 +49,14 @@ void setup() {
   #if _debug
     Serial.begin(9600);
   #endif
+
+  pinMode(outPin, OUTPUT);
+  
   dprintf(
     "Offset Hour: " + String(offsetHour) + 
     " Offset Minute " + String(offsetMinute)
     );
-    dprintf("begin");
-  
+  dprintf("begin");
 }
 
 void loop() {
