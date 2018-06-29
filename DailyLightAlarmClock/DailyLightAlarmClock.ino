@@ -11,6 +11,21 @@ long numberMillisOverflows = 0;
 #endif
 
 ///////////////////////////////////////////////////////////////////
+// Time conversion
+
+unsigned long hourToMs(int hour){
+  return hour*toHour*toMinute*toSecond;
+}
+
+unsigned long minToMs(int minute){
+  return minute*toMinute*toSecond;
+}
+
+unsigned long secToMs(int sec){
+  return sec*toSecond;
+}
+
+///////////////////////////////////////////////////////////////////
 // Clock
 
 unsigned long toDay = 24;
@@ -18,10 +33,11 @@ unsigned long toHour = 60;
 unsigned long toMinute = 60;
 unsigned long toSecond = 1000;
 
-unsigned long offsetHour = 20*toHour*toMinute*toSecond;
-unsigned long offsetMinute = 22*toMinute*toSecond;
-unsigned long offsetSecond = 45*toSecond;
+unsigned long offsetHour = hourToMs(20);
+unsigned long offsetMinute = minToMs(17);
+unsigned long offsetSecond = secToMs(45);
 
+ 
 int getHours(){
   unsigned long factor = toDay*toHour*toMinute*toSecond;
   unsigned long milliseconds = (millis())%factor;
